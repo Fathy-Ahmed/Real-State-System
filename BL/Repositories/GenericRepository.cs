@@ -1,5 +1,6 @@
 ﻿using BL.Interfaces;
 using DL.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,11 @@ namespace BL.Repositories
         {
             _dbContext = dbContext;
         }
-        public void Add(T entity)
+
+
+        public async Task Add(T entity)
         {
-            _dbContext.Add(entity);
-         
+            await _dbContext.AddAsync(entity);
         }
 
         public void Delete(T entity)
@@ -28,14 +30,14 @@ namespace BL.Repositories
             
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-          return _dbContext.Set<T>().ToList();
+          return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            return _dbContext.Set<T>().Find(id); 
+            return await _dbContext.Set<T>().FindAsync(id); 
         }
 
         public void Update(T entity)

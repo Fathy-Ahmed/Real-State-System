@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "FjNheY3tVXbBsxTWVtJ3OP76BAOZ2X4prOjQySa18IU=",
+  "Source": "Api",
+  "BasePath": "_content/Api",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Api\\wwwroot",
+      "Source": "Api",
+      "ContentRoot": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\",
+      "BasePath": "_content/Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\6e4794bb-a86f-4de9-94c3-e6c103a3aceb.png",
+      "SourceId": "Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\",
+      "BasePath": "_content/Api",
+      "RelativePath": "images/Property/6e4794bb-a86f-4de9-94c3-e6c103a3aceb.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Property\\6e4794bb-a86f-4de9-94c3-e6c103a3aceb.png"
+    }
+  ]
+}

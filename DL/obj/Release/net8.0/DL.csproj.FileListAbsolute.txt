@@ -1,0 +1,15 @@
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\bin\Release\net8.0\DL.deps.json
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\bin\Release\net8.0\DL.runtimeconfig.json
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\bin\Release\net8.0\DL.dll
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\bin\Release\net8.0\DL.pdb
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.csproj.AssemblyReference.cache
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.AssemblyInfoInputs.cache
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.AssemblyInfo.cs
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.csproj.CoreCompileInputs.cache
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.sourcelink.json
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.dll
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\refint\DL.dll
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.pdb
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\DL.genruntimeconfig.cache
+C:\Users\fathy\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\Desktop\YAT Project\Real state system\DL\obj\Release\net8.0\ref\DL.dll

@@ -1,5 +1,6 @@
 ﻿using BL.Interfaces;
 using BL.Repositories;
+using BL.Services;
 using BL.Utilities;
 using DL.Context;
 using DL.Models;
@@ -7,7 +8,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace Api;
@@ -20,12 +20,11 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers()
-            .ConfigureApiBehaviorOptions(op =>
+        builder.Services.AddControllers().ConfigureApiBehaviorOptions(op =>
             {
                 // op.SuppressModelStateInvalidFilter=true; // عشان يوقف (الموديل ستيت) عشان اعرف اهندل انا الاخطاء واغير رساله الايرور
-            });                                                                                            // ModelState
-                                                                                                           //----------------------------------------------------------------------------------------------
+            });                                                                                           // ModelState
+                                                                                                          //----------------------------------------------------------------------------------------------
         builder.Services.AddDbContext<RealStateDbContext>(op =>
         {
             op.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
@@ -85,12 +84,12 @@ public class Program
         });
 
         //----------------------------------------------------------------------------------------------
-       
+
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IAuthServices, AuthServices>();
-       
+
         //----------------------------------------------------------------------------------------------
-       
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -105,6 +104,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseStaticFiles();
         app.UseHttpsRedirection();
         app.UseCors("MyPolicy");
 

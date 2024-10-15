@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Real State System\\DL\\DL.csproj": {}
+    "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\DL\\DL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Real State System\\DL\\DL.csproj": {
+    "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\DL\\DL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Real State System\\DL\\DL.csproj",
+        "projectUniqueName": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\DL\\DL.csproj",
         "projectName": "DL",
-        "projectPath": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Real State System\\DL\\DL.csproj",
+        "projectPath": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\DL\\DL.csproj",
         "packagesPath": "C:\\Users\\fathy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Real State System\\DL\\obj\\",
+        "outputPath": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\DL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fathy\\AppData\\Roaming\\NuGet\\NuGet.Config",

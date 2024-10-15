@@ -1,6 +1,8 @@
-﻿using BL.Interfaces;
-using BL.Models;
+﻿using BL.Models;
+using BL.Services;
+using BL.Utilities;
 using DL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +27,11 @@ namespace Api.Controllers
         //---------------------------------------------------------------------------
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var result = await _authServices.RegisterAsync(model);
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
@@ -36,8 +39,8 @@ namespace Api.Controllers
             return Ok(result);
         }
         //---------------------------------------------------------------------------
-        [HttpPost("login2")]
-        public async Task<IActionResult> Login2([FromBody] TokenRequstModel model)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] TokenRequstDTO model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -49,11 +52,14 @@ namespace Api.Controllers
         }
         //---------------------------------------------------------------------------
         [HttpPost("AddUsertoRole")]
-        public async Task<IActionResult> AddUsertoRole([FromBody] AddRoleModel model)
+        [Authorize(Roles =SD.Manager)]
+        public async Task<IActionResult> AddUsertoRole([FromBody] AddRoleDTO model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
             var result = await _authServices.AddRoleAsync(model);
+
             if (!string.IsNullOrEmpty(result))
                 return BadRequest(result);
 
