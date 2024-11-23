@@ -54,34 +54,19 @@ namespace DL.Migrations
                 name: "Properties",
                 columns: table => new
                 {
-                    PropertyId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Size = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PropertyType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SquareFootage = table.Column<double>(type: "float", nullable: false),
+                    RentPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AvailabilityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.PropertyId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tenants",
-                columns: table => new
-                {
-                    TenantId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tenants", x => x.TenantId);
+                    table.PrimaryKey("PK_Properties", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,31 +176,116 @@ namespace DL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LeaseAgreements",
+                name: "Tenants",
                 columns: table => new
                 {
-                    LeaseAgreementId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tenants", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tenants_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IssueReports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false),
+                    IssueDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReportedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResolutionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IssueReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_IssueReports_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_IssueReports_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Leases",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    PaymentDueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SecurityDeposit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LeaseTerms = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LeaseAgreements", x => x.LeaseAgreementId);
+                    table.PrimaryKey("PK_Leases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LeaseAgreements_Properties_PropertyId",
+                        name: "FK_Leases_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "PropertyId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_LeaseAgreements_Tenants_TenantId",
+                        name: "FK_Leases_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
-                        principalColumn: "TenantId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LeaseId = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    PaymentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Leases_LeaseId",
+                        column: x => x.LeaseId,
+                        principalTable: "Leases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Payments_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
@@ -259,15 +329,39 @@ namespace DL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaseAgreements_PropertyId",
-                table: "LeaseAgreements",
-                column: "PropertyId",
-                unique: true);
+                name: "IX_IssueReports_PropertyId",
+                table: "IssueReports",
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaseAgreements_TenantId",
-                table: "LeaseAgreements",
+                name: "IX_IssueReports_TenantId",
+                table: "IssueReports",
                 column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Leases_PropertyId",
+                table: "Leases",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Leases_TenantId",
+                table: "Leases",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_LeaseId",
+                table: "Payments",
+                column: "LeaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_TenantId",
+                table: "Payments",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_UserId",
+                table: "Tenants",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -289,19 +383,25 @@ namespace DL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "LeaseAgreements");
+                name: "IssueReports");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Leases");
 
             migrationBuilder.DropTable(
                 name: "Properties");
 
             migrationBuilder.DropTable(
                 name: "Tenants");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

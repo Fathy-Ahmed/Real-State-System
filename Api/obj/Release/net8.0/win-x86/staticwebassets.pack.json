@@ -1,8 +1,20 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\6e4794bb-a86f-4de9-94c3-e6c103a3aceb.png",
-      "PackagePath": "staticwebassets\\images\\Property\\6e4794bb-a86f-4de9-94c3-e6c103a3aceb.png"
+      "Id": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\4225e3db-230f-4cea-b3af-0e076a81556e.jpeg",
+      "PackagePath": "staticwebassets\\images\\Property\\4225e3db-230f-4cea-b3af-0e076a81556e.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\94ac4d2c-1bd9-4f48-8dde-cb2a741c5ad0.jpeg",
+      "PackagePath": "staticwebassets\\images\\Property\\94ac4d2c-1bd9-4f48-8dde-cb2a741c5ad0.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\cf564b9c-f030-47a0-b091-02cb8f9d117f.jpeg",
+      "PackagePath": "staticwebassets\\images\\Property\\cf564b9c-f030-47a0-b091-02cb8f9d117f.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\fathy\\OneDrive - Benha University (Faculty Of Computers & Information Technolgy)\\Desktop\\YAT Project\\Real state system\\Api\\wwwroot\\images\\Property\\fe6405ff-1b19-4646-bdfd-99f934a4fa1a.jpeg",
+      "PackagePath": "staticwebassets\\images\\Property\\fe6405ff-1b19-4646-bdfd-99f934a4fa1a.jpeg"
     },
     {
       "Id": "obj\\Release\\net8.0\\win-x86\\staticwebassets\\msbuild.Api.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -87,15 +87,59 @@ namespace DL.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("DL.Models.LeaseAgreement", b =>
+            modelBuilder.Entity("DL.Models.IssueReport", b =>
                 {
-                    b.Property<int>("LeaseAgreementId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LeaseAgreementId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IssueDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReportedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ResolutionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("IssueReports");
+                });
+
+            modelBuilder.Entity("DL.Models.Lease", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LeaseTerms")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PaymentDueDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PropertyId")
@@ -104,72 +148,122 @@ namespace DL.Migrations
                     b.Property<decimal>("RentAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("SecurityDeposit")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("int");
 
-                    b.HasKey("LeaseAgreementId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("PropertyId")
-                        .IsUnique();
+                    b.HasIndex("PropertyId");
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("LeaseAgreements");
+                    b.ToTable("Leases");
+                });
+
+            modelBuilder.Entity("DL.Models.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LeaseId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PaymentAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeaseId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("DL.Models.Property", b =>
                 {
-                    b.Property<int>("PropertyId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PropertyId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AvailabilityStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Img")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PropertyType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RentPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Size")
-                        .HasColumnType("int");
+                    b.Property<double>("SquareFootage")
+                        .HasColumnType("float");
 
-                    b.HasKey("PropertyId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId")
+                        .IsUnique()
+                        .HasFilter("[OwnerId] IS NOT NULL");
 
                     b.ToTable("Properties");
                 });
 
             modelBuilder.Entity("DL.Models.Tenant", b =>
                 {
-                    b.Property<int>("TenantId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TenantId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -177,7 +271,13 @@ namespace DL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TenantId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tenants");
                 });
@@ -315,16 +415,16 @@ namespace DL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DL.Models.LeaseAgreement", b =>
+            modelBuilder.Entity("DL.Models.IssueReport", b =>
                 {
                     b.HasOne("DL.Models.Property", "Property")
-                        .WithOne("LeaseAgreement")
-                        .HasForeignKey("DL.Models.LeaseAgreement", "PropertyId")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DL.Models.Tenant", "Tenant")
-                        .WithMany("LeaseAgreements")
+                        .WithMany()
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -332,6 +432,64 @@ namespace DL.Migrations
                     b.Navigation("Property");
 
                     b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("DL.Models.Lease", b =>
+                {
+                    b.HasOne("DL.Models.Property", "Property")
+                        .WithMany("Leases")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DL.Models.Tenant", "Tenant")
+                        .WithMany("Leases")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("DL.Models.Payment", b =>
+                {
+                    b.HasOne("DL.Models.Lease", "Lease")
+                        .WithMany("Payments")
+                        .HasForeignKey("LeaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DL.Models.Tenant", "Tenant")
+                        .WithMany("Payments")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lease");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("DL.Models.Property", b =>
+                {
+                    b.HasOne("DL.Models.ApplicationUser", "Owner")
+                        .WithOne()
+                        .HasForeignKey("DL.Models.Property", "OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("DL.Models.Tenant", b =>
+                {
+                    b.HasOne("DL.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,15 +543,21 @@ namespace DL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DL.Models.Lease", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
             modelBuilder.Entity("DL.Models.Property", b =>
                 {
-                    b.Navigation("LeaseAgreement")
-                        .IsRequired();
+                    b.Navigation("Leases");
                 });
 
             modelBuilder.Entity("DL.Models.Tenant", b =>
                 {
-                    b.Navigation("LeaseAgreements");
+                    b.Navigation("Leases");
+
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

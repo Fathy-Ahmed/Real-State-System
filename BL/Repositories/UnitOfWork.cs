@@ -1,6 +1,5 @@
 ﻿using BL.Interfaces;
 using DL.Context;
-
 namespace BL.Repositories;
 
 public class UnitOfWork : IUnitOfWork
@@ -9,12 +8,16 @@ public class UnitOfWork : IUnitOfWork
 
     public IPropertyRepository PropertyRepository { get; set; }
     public ITenantRepository TenantRepository { get; set; }
-    public ILeaseAgreementRepository LeaseAgreementRepository { get; set; }
+    public ILeaseRepository LeaseRepository { get; set; }
+    public IIssueReportRepository IssueReportRepository { get; set; }
+    public IPaymentRepository PaymentRepository { get; set; }
     public UnitOfWork(RealStateDbContext dbContext)
     {
         PropertyRepository = new PropertyRepository(dbContext);
         TenantRepository = new TenantRepository(dbContext);
-        LeaseAgreementRepository = new LeaseAgreementRepository(dbContext);
+        LeaseRepository = new LeaseRepository(dbContext);
+        IssueReportRepository = new IssueReportRepository(dbContext);
+        PaymentRepository = new PaymentRepository(dbContext);
 
         _dbContext = dbContext;
     }

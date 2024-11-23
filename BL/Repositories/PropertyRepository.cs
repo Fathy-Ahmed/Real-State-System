@@ -1,19 +1,12 @@
 ﻿using BL.Interfaces;
 using DL.Context;
 using DL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace BL.Repositories;
 
-namespace BL.Repositories
+public class PropertyRepository : GenericRepository<Property> , IPropertyRepository
 {
-    public class PropertyRepository : GenericRepository<Property> , IPropertyRepository
+    public PropertyRepository(RealStateDbContext dbContext) : base (dbContext)
     {
-        public PropertyRepository(RealStateDbContext dbContext) : base (dbContext)
-        {
-            
-        }
+        
     }
 }

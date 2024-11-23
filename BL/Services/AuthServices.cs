@@ -1,4 +1,5 @@
-﻿using BL.Models;
+﻿using BL.Interfaces;
+using BL.Models;
 using BL.Utilities;
 using DL.Models;
 using Microsoft.AspNetCore.Identity;
@@ -7,24 +8,86 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
 namespace BL.Services;
 
 public class AuthServices : IAuthServices
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly JWT _jwt;
 
     public AuthServices
-        (UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt)
+        (UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JWT> jwt, IUnitOfWork unitOfWork)
     {
         _userManager = userManager;
         _roleManager = roleManager;
+        this._unitOfWork = unitOfWork;
         _jwt = jwt.Value;
     }
+   
     //-----------------------------------------------------------------------------------------
-    public async Task<AuthDTO> RegisterAsync(RegisterDTO model)
+
+    public async Task<AuthDTO> RegisterTenantAsync(RegisterTenantDTO model)
+    {
+        if (await _userManager.FindByNameAsync(model.UserName) is not null)
+            return new AuthDTO { Message = "UserName is already register" };
+
+
+        if (await _userManager.FindByEmailAsync(model.Email) is not null)
+            return new AuthDTO { Message = "Email is already register" };
+
+
+        ApplicationUser user = new()
+        {
+            UserName = model.UserName,
+            Email = model.Email,
+            PhoneNumber = model.PhoneNumber,
+        };
+        
+        IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+
+        if (!result.Succeeded)
+        {
+            StringBuilder errors = new StringBuilder();
+            foreach (var error in result.Errors)
+                errors.Append($"{error.Description},");
+           
+            return new AuthDTO { Message = errors.ToString() };
+        }
+
+        
+        
+        await _userManager.AddToRoleAsync(user, SD.Tenant);
+
+        Tenant tenant = new()
+        {
+            FullName = model.UserName,
+            Email = model.Email,
+            PhoneNumber= model.PhoneNumber,
+            DateOfBirth = model.DateOfBirth,
+            UserId=user.Id,
+        };
+
+        await _unitOfWork.TenantRepository.Add(tenant);
+        await _unitOfWork.Complete();
+
+
+        var jwtSecurityToken = await CreateJwtToken(user);
+        return new AuthDTO
+        {
+            Email = user.Email,
+            UserName = user.UserName,
+            ExoiresOn = jwtSecurityToken.ValidTo,
+            IsAuthenticated = true,
+            Roles = new List<string> { SD.Tenant },
+            Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
+        };
+    }
+
+    //-----------------------------------------------------------------------------------------
+
+    public async Task<AuthDTO> RegisterManagerAsync(RegisterManagerDTO model)
     {
         if (await _userManager.FindByNameAsync(model.UserName) is not null)
             return new AuthDTO { Message = "UserName is already register" };
@@ -51,9 +114,11 @@ public class AuthServices : IAuthServices
             return new AuthDTO { Message = errors.ToString() };
         }
 
-        await _userManager.AddToRoleAsync(user, SD.Tenant);
+
+        await _userManager.AddToRoleAsync(user, SD.Manager);
 
         var jwtSecurityToken = await CreateJwtToken(user);
+
 
         return new AuthDTO
         {
@@ -61,10 +126,11 @@ public class AuthServices : IAuthServices
             UserName = user.UserName,
             ExoiresOn = jwtSecurityToken.ValidTo,
             IsAuthenticated = true,
-            Roles = new List<string> { SD.Tenant },
+            Roles = new List<string> { SD.Manager },
             Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
         };
     }
+
     //-----------------------------------------------------------------------------------------
     public async Task<AuthDTO> GetTokenAsync(TokenRequstDTO model)
     {

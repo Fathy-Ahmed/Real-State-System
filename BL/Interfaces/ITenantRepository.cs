@@ -1,13 +1,7 @@
 ﻿using DL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace BL.Interfaces;
 
-namespace BL.Interfaces
+public interface ITenantRepository : IGenericRepository<Tenant>  
 {
-    public interface ITenantRepository : IGenericRepository<Tenant>  
-    {
-    }
+    Task<Tenant> GetByUserId (string userId);
 }

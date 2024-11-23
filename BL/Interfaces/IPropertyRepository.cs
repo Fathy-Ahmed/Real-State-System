@@ -1,13 +1,6 @@
 ﻿using DL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace BL.Interfaces;
 
-namespace BL.Interfaces
+public interface IPropertyRepository : IGenericRepository <Property>
 {
-    public interface IPropertyRepository : IGenericRepository <Property>
-    {
-    }
 }

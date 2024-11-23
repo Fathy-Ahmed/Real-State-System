@@ -1,22 +1,21 @@
 ﻿using BL.Interfaces;
 using DL.Context;
 using DL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace BL.Repositories
+namespace BL.Repositories;
+
+public class TenantRepository : GenericRepository<Tenant> , ITenantRepository 
 {
-    public class TenantRepository : GenericRepository<Tenant> , ITenantRepository 
-    {
-        public TenantRepository(RealStateDbContext dbContext) : base(dbContext) 
-        {
+    private readonly RealStateDbContext _dbContext;
 
-        } 
-        
-            
-        
+    public TenantRepository(RealStateDbContext dbContext) : base(dbContext) 
+    {
+        this._dbContext = dbContext;
+    }
+
+    public async Task<Tenant> GetByUserId(string userId)
+    {
+        return (await _dbContext.Tenants.Where(e => e.UserId == userId).FirstOrDefaultAsync());
     }
 }

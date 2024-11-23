@@ -5,7 +5,7 @@
 namespace DL.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedDataBase : Migration
+    public partial class SeedDBRoles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,6 @@ namespace DL.Migrations
                 columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
                 values: new[] { Guid.NewGuid().ToString(), "Manager", "Manager".ToUpper(), Guid.NewGuid().ToString() }
                 );
-
 
         }
 
